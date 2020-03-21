@@ -1,15 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var createError   = require('http-errors'),
+    express       = require('express'),
+    app           = express(),
+    bodyParser    = require('body-parser');
+    path          = require('path'),
+    cookieParser  = require('cookie-parser'),
+    logger        = require('morgan'),
+    mongoose      = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useFindAndModify', false);
+mongoose.connect("mongodb://localhost/OS");
 
 // view engine setup
+app.use(bodyParser.urlencoded({extended: true}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
