@@ -1,9 +1,18 @@
 var express = require('express');
-var router = express.Router();
+    router = express.Router(),
+    Product = require('../models/product');
+
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', function(req, res) {
+  // Get all campgrounds from DB
+  Product.find({}, function(err, allProducts){
+    if(err){
+        console.log(err);
+    } else {
+        res.render("index",{products: allProducts});
+    }
+    });
 });
 
 module.exports = router;

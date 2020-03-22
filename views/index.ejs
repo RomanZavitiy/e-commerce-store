@@ -1,86 +1,20 @@
 <% include ./partials/header %>
 
-<div class="row">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://imgs.classicfm.com/images/61630?width=1000&crop=16_9&signature=UOxsAc4VhzNYQEIG-RTXur_mix8=" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere cum aut enim dolore, quis odio odit libero dignissimos qui aperiam cumque minima deleniti doloremque. Inventore, temporibus! Nostrum incidunt doloremque magnam?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
+<% products.forEach(function(products){ %>
+  <div class="col-md-3 col-sm-6">
+      <div class="thumbnail">
+              <img id="image-at-index" src="<%= products.imagePath %>">
+          <div class="caption">
+              <h4><%= products.title %></h4>
+          </div>
+          <p><%= products.description %></p>
+          
+          <div class="clearfix">
+            <div class="price pull-left">$<%= products.price %></div>
+            <a href="#" class="btn btn-success pull-right" role="button">Add to shopping cart</a>
+          </div>
       </div>
-    </div>
   </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://imgs.classicfm.com/images/61630?width=1000&crop=16_9&signature=UOxsAc4VhzNYQEIG-RTXur_mix8=" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere cum aut enim dolore, quis odio odit libero dignissimos qui aperiam cumque minima deleniti doloremque. Inventore, temporibus! Nostrum incidunt doloremque magnam?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://imgs.classicfm.com/images/61630?width=1000&crop=16_9&signature=UOxsAc4VhzNYQEIG-RTXur_mix8=" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere cum aut enim dolore, quis odio odit libero dignissimos qui aperiam cumque minima deleniti doloremque. Inventore, temporibus! Nostrum incidunt doloremque magnam?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>    
-<div class="row">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://imgs.classicfm.com/images/61630?width=1000&crop=16_9&signature=UOxsAc4VhzNYQEIG-RTXur_mix8=" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere cum aut enim dolore, quis odio odit libero dignissimos qui aperiam cumque minima deleniti doloremque. Inventore, temporibus! Nostrum incidunt doloremque magnam?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://imgs.classicfm.com/images/61630?width=1000&crop=16_9&signature=UOxsAc4VhzNYQEIG-RTXur_mix8=" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere cum aut enim dolore, quis odio odit libero dignissimos qui aperiam cumque minima deleniti doloremque. Inventore, temporibus! Nostrum incidunt doloremque magnam?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="https://imgs.classicfm.com/images/61630?width=1000&crop=16_9&signature=UOxsAc4VhzNYQEIG-RTXur_mix8=" alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere cum aut enim dolore, quis odio odit libero dignissimos qui aperiam cumque minima deleniti doloremque. Inventore, temporibus! Nostrum incidunt doloremque magnam?</p>
-        <div class="clearfix">
-          <div class="price pull-left">$12</div>
-          <a href="#" class="btn btn-success pull-right" role="button">Button</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>   
+<% }) %>
 
 <% include ./partials/footer %>
