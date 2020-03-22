@@ -1,7 +1,7 @@
 var express = require('express');
     router = express.Router(),
-    Product = require('../models/product');
-
+    Product = require('../models/product'),
+ 
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -14,5 +14,6 @@ router.get('/', function(req, res) {
     }
     });
 });
+
 
 module.exports = router;
