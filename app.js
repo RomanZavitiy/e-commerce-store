@@ -6,7 +6,9 @@ var createError   = require('http-errors'),
     cookieParser  = require('cookie-parser'),
     logger        = require('morgan'),
     mongoose      = require('mongoose'),
-    session       = require('express-session');
+    session       = require('express-session'),
+    passport      = require('passport'),
+    flash         = require('connect-flash');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -27,7 +29,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({secret: 'supersecret', resave: false, saveUninitialized: false}));
+app.use(session({
+  secret: 'supersecret',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
