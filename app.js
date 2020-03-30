@@ -8,18 +8,21 @@ var createError   = require('http-errors'),
     mongoose      = require('mongoose'),
     session       = require('express-session'),
     passport      = require('passport'),
-    flash         = require('connect-flash');
+    localStrategy = require("passport-local"),
+    flash         = require('connect-flash'),
+    // models exports
+    User          = require('./models/user');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 
-
+// mongoose
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useFindAndModify', false);
 mongoose.connect("mongodb://localhost/OS");
-require('./config/passport');
+
 
 // view engine setup
 app.use(bodyParser.urlencoded({extended: true}));
@@ -30,23 +33,29 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
-  secret: 'supersecret',
+app.use(flash());
+
+// Passport Config
+app.use(require("express-session")({
+  secret: "secret, i mean it.",
   resave: false,
   saveUninitialized: false
 }));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 
 // error handler
 app.use(function(err, req, res, next) {
