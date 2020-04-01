@@ -20,10 +20,10 @@ router.get('/', function(req, res) {
     });
 });
 
+// Show Signup Page
 router.get('/user/signup', function(req,res,next){
     res.render('user/signup');
 });
-
 
 //Handle Sign Up Logic
 router.post("/user/signup", function(req,res){
@@ -36,37 +36,38 @@ router.post("/user/signup", function(req,res){
         avatar: req.body.avatar
     });
     //eval(require('locus'));
-    // if(req.body.isAdmin === "LovesWeed123"){
-    //     newUser.isAdmin = true;
-    //}
+     if(req.body.isAdmin === "LovesWeed123"){
+        newUser.isAdmin = true;
+    }
     User.register(newUser, req.body.password, function(err,user){
         if(err){
             console.log(err);
+            //req.flash("error", err.message);
             res.render('user/signup');
         }
         passport.authenticate('local')(req, res, function(){
+            //req.flash("success", "Successfully Sign Up! Nice to meet you " + user.username);
             res.redirect('/user/profile');
         });
     });
 });
-//         if (err){
-//             console.log(err);
-//             req.flash("error", err.message);
-//             return res.redirect("register");
-//         }
-//         passport.authenticate("local")(req, res, function(){
-//             //req.flash("success", "Successfully Sign Up! Nice to meet you " + user.username);
-//             res.redirect("/profile");
-//         });
-//     });
-// });
 
-//router.post('/user/signup', passport.authenticate('local.signup', {
-    //seccessRedirect: '/user/profile',
-    //failureRedirect: '/user/signup',
-    //failureRedirect: true
-//}));
+//Show Signin Page
+router.get('/user/signin',function(req,res){
+    res.render('user/signin');
+});
 
+//Handle Signin Logic
+router.post('/user/signin', passport.authenticate('local', 
+    {
+        successRedirect: '/user/profile',
+        failureRedirect: '/user/signin',
+         failureFlash: true,
+        successFlash: "Welcome to noNameShop !"
+    }), function(req, res){        
+});
+
+//Show User Profile
 router.get('/user/profile', function(req, res){
     res.render('user/profile');
 });
