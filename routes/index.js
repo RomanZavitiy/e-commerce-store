@@ -1,7 +1,8 @@
 var express = require('express');
     router = express.Router(),
-    Product = require('../models/product'),
-    User     = require('../models/user');
+    //models imported
+    Product = require('../models/product');
+    
 
 /* GET home page. */
 router.get('/', function(req, res) {

@@ -10,7 +10,7 @@ var createError   = require('http-errors'),
     passport      = require('passport'),
     localStrategy = require("passport-local"),
     flash         = require('connect-flash'),
-    // models exports
+    // models imported
     User          = require('./models/user');
 
 var indexRouter = require('./routes/index');
@@ -34,6 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(flash());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Passport Config
 app.use(require("express-session")({
@@ -47,7 +48,10 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(req, res, next){
+  res.locals.login = req.isAuthenticated();
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);

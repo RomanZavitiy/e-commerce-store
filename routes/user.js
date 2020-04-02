@@ -3,9 +3,17 @@ var express = require('express');
     passport = require('passport'),
     csrf    = require('csurf');
 
-
 var csrfProtection = csrf();
 router.use(csrfProtection);
+
+//Show User Profile
+router.get('/profile', isLoggedIn, function(req, res){
+  res.render('user/profile');
+});
+
+router.use('/', notLoggedIn, function(req, res, next){
+  next();
+});
 
 // Show Signup Page
 router.get('/signup', function(req,res,next){
@@ -54,9 +62,28 @@ router.post('/signin', passport.authenticate('local',
   }), function(req, res){        
 });
 
-//Show User Profile
-router.get('/profile', function(req, res){
-  res.render('user/profile');
+//Logout
+router.get('/logout', function(req, res){
+  req.logout();
+  req.flash("success", "Logged you out!");
+  res.redirect('/');
 });
 
 module.exports = router;
+
+// middleware 
+function isLoggedIn (req, res, next) {
+  if(req.isAuthenticated()){
+    return next();
+  } else {
+    res.redirect('/');
+  }
+}
+
+function notLoggedIn (req, res, next) {
+  if(!req.isAuthenticated()){
+    return next();
+  } else {
+    res.redirect('/');
+  }
+}
