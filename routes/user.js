@@ -11,6 +11,13 @@ router.get('/profile', isLoggedIn, function(req, res){
   res.render('user/profile');
 });
 
+//Logout
+router.get('/logout', isLoggedIn, function(req, res){
+  req.logout();
+  req.flash("success", "Logged you out!");
+  res.redirect('/');
+});
+
 router.use('/', notLoggedIn, function(req, res, next){
   next();
 });
@@ -60,13 +67,6 @@ router.post('/signin', passport.authenticate('local',
        failureFlash: true,
       successFlash: "Welcome to noNameShop !"
   }), function(req, res){        
-});
-
-//Logout
-router.get('/logout', function(req, res){
-  req.logout();
-  req.flash("success", "Logged you out!");
-  res.redirect('/');
 });
 
 module.exports = router;
