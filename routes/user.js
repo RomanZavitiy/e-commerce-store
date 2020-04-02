@@ -1,14 +1,15 @@
 var express = require('express');
-var router = express.Router();
+    router = express.Router(),
+    passport = require('passport'),
+    csrf    = require('csurf');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+
+var csrfProtection = csrf();
+router.use(csrfProtection);
 
 // Show Signup Page
 router.get('/signup', function(req,res,next){
-  res.render('user/signup');
+  res.render('user/signup', {csrfToken: req.csrfToken()});
 });
 
 //Handle Sign Up Logic
@@ -40,7 +41,7 @@ router.post("/signup", function(req,res){
 
 //Show Signin Page
 router.get('/signin',function(req,res){
-  res.render('user/signin');
+  res.render('user/signin', {csrfToken: req.csrfToken()});
 });
 
 //Handle Signin Logic
