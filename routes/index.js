@@ -16,4 +16,8 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get('/add-to-card/:id', function(req, res, next){
+    var productId = req.params.id;
+});
+
 module.exports = router;
