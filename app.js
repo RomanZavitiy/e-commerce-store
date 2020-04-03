@@ -10,6 +10,7 @@ var createError   = require('http-errors'),
     passport      = require('passport'),
     localStrategy = require("passport-local"),
     flash         = require('connect-flash'),
+    MongoStore    = require('connect-mongo')(session),
     // models imported
     User          = require('./models/user');
 
@@ -40,7 +41,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(require("express-session")({
   secret: "secret, i mean it.",
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new MongoStore({mongooseConnection: mongoose.connection }),
+  cookie: {maxAge: 180 * 60 * 1000} // 3 hours
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,6 +53,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
+  req.locals.session = req.session;
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");
   next();
