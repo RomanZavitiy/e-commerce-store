@@ -29,7 +29,9 @@
               <li>
                 <a href="/shopping-cart">
                   <i class="fas fa-shopping-cart"></i> Shopping Cart
-                  <span class="badge"><%= session.cart.totalQty %></span>
+                  <% if(session.cart) { %>
+                  <span class="badge"><%= session.cart.totalQty || 0 %></span>
+                  <% } %>
                 </a>
               </li>
               <li class="dropdown">
