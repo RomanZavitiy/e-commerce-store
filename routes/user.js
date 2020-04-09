@@ -14,7 +14,7 @@ router.get('/profile', isLoggedIn, function(req, res){
 //Logout
 router.get('/logout', isLoggedIn, function(req, res){
   req.logout();
-  req.flash("success", "Logged you out!");
+  //req.flash("success", "Logged you out!"); // problem by signing in and going to / appears this flash, why? 
   res.redirect('/');
 });
 
@@ -48,8 +48,14 @@ router.post("/signup", function(req,res){
           res.render('user/signup');
       }
       passport.authenticate('local')(req, res, function(){
+        if (req.session.oldUrl) {
+          var oldUrl = req.session.oldUrl;
+          req.session.oldUrl = null;
+          res.redirect(oldUrl);
+        } else  {
+          res.redirect('user/profile');
           //req.flash("success", "Successfully Sign Up! Nice to meet you " + user.username);
-          res.redirect('/user/profile');
+        }
       });
   });
 });
@@ -62,11 +68,16 @@ router.get('/signin',function(req,res){
 //Handle Signin Logic
 router.post('/signin', passport.authenticate('local', 
   {
-      successRedirect: '/user/profile',
       failureRedirect: '/user/signin',
-       failureFlash: true,
-      successFlash: "Welcome to noNameShop !"
-  }), function(req, res){        
+      failureFlash: true,
+  }), function(req, res, next){
+    if (req.session.oldUrl) {
+      var oldUrl = req.session.oldUrl;
+      req.session.oldUrl = null;
+      res.redirect(oldUrl);
+    } else {
+      res.redirect('user/profile');
+    }
 });
 
 module.exports = router;
