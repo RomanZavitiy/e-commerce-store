@@ -2,7 +2,8 @@ var express = require('express');
     router = express.Router(),
     //models imported
     Product = require('../models/product'),
-    Cart    = require('../models/cart')
+    Cart    = require('../models/cart'),
+    Order   = require('../models/order');
     
 
 // HOME PAGE WITH PRODUCTS
@@ -73,13 +74,23 @@ router.post('/checkout', function(req, res, next){
         description: 'Test charge.', //obtained with Stripe.js
     },
     function(err, charge) {
-        if(err){
+        if(err) {
             req.flash('error', err.message);
             return res.redirect('/checkout');
         }
-        req.flash('success', 'Test purchase made with success');
-        req.session.cart = null;
-        res.redirect('/');
+        var order = new Order({
+            user: req.user,
+            cart: cart,
+            address: req.body.address,
+            name: req.body.name,
+            paymentId: charge.id
+        });
+        order.save(function(err, result){
+            req.flash('success', 'Test purchase made with success');
+            req.session.cart = null;
+            res.redirect('/');
+        });
+        
     });
 });
 
