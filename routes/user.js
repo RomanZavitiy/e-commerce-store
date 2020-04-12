@@ -3,12 +3,27 @@ var express = require('express');
     passport = require('passport'),
     csrf    = require('csurf');
 
+    Cart    = require('../models/cart'),
+    Order   = require('../models/order');
+
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
+
+
 //Show User Profile
 router.get('/profile', isLoggedIn, function(req, res){
-  res.render('user/profile');
+  Order.find({user: req.user}, function(err, orders) {
+    if (err) {
+        return res.write('Error!');
+    }
+    var cart;
+    orders.forEach(function(order) {
+        cart = new Cart(order.cart);
+        order.items = cart.generateArray();
+    });
+    res.render('user/profile', { orders: orders });
+  });
 });
 
 //Logout
