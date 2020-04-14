@@ -1,5 +1,5 @@
 <% include ../partials/header %>
-<% if (products) { %>
+<% if ((products) && (products != 0)) { %>
     <div class="row">
         <div class="col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
             <ul class="list-group">
@@ -11,8 +11,8 @@
                     <div class="btn-group">
                         <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Reduce by 1</a></li>
-                            <li><a href="#">Remove all</a></li>
+                            <li><a href="/reduce/<%= products.item._id %>">Reduce by 1</a></li>
+                            <li><a href="/remove/<%= products.item._id %>">Remove all</a></li>
                         </ul>
                     </div>
                 </li>
