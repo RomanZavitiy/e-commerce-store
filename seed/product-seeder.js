@@ -1,3 +1,4 @@
+// Time to add some new function to this projects.
 var Product = require('../models/product'),
     mongoose = require('mongoose');
 
