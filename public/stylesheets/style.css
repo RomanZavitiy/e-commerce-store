@@ -11,6 +11,18 @@ a {
   height: 170px;
 }
 
+/* -= HEADER =- */
+#site-header 
+{
+  height: 140px;
+}
+
+
+.navbar-header #logo
+{
+  left: 50%;
+}
+/* -= FOOTER =- */
 .site-footer
 {
   background-color:#f0f0f0;
@@ -19,15 +31,7 @@ a {
   line-height:24px;
   color:#737373;
 }
-.site-footer hr
-{
-  border-top-color:#bbb;
-  opacity:0.5
-}
-.site-footer hr.small
-{
-  margin:20px 0
-}
+
 .site-footer h6
 {
   color:rgb(255, 255, 0);
@@ -42,7 +46,7 @@ a {
 }
 .site-footer a:hover
 {
-  color:#3366cc;
+  color:#225dd1;
   text-decoration:none;
 }
 .footer-links
