@@ -7,24 +7,168 @@ a {
   color: #00B7FF;
 }
 
-#image-at-index{
+#image-at-index  {
   height: 170px;
 }
 
 /* -= HEADER =- */
-#site-header 
-{
-  height: 140px;
+
+:root {
+  --background: #f0f0f0;
+}
+
+header {
+  background: var(--background);
+  text-align: center;
+  position: fixed;
+  top: 0; 
+  width: 100%;
+  z-index: 1;
+}
+
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  position: absolute;
+  left:0;
+  top:0;
+  margin-left: 1em;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  background: white;
+  height: 2px;
+  width: 2em;
+  border-radius: 2px;
+  position: relative;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: '';
+  position: absolute;
+}
+
+.nav-toggle-label span::before {
+  bottom: 7px;
+}
+
+.nav-toggle-label span::after {
+  top: 6px;
+}
+
+nav {
+  position: absolute;
+  text-align: left;
+  left:0;
+  top:100%;
+  background-color: var(--background);
+  width: 100%;
+  transform: scale(1, 0);
+  transform-origin: top;
+  transition: transform 400ms ease-in-out;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+nav a {
+  color:white;
+  text-decoration: none;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+nav a:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.nav-toggle:checked ~ nav {
+  transform: scale(1,1);
+}
+
+.nav-toggle:checked ~ nav a {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out 250ms;
+}
+
+@media screen and (min-width:800px) {
+  .nav-toggle-label {
+    display: none;
+  }
+  
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+  }
+
+  .logo {
+    grid-column: 2 / 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  nav {
+    all: unset;
+    grid-column: 2/ 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  nav ul {
+    display: flex;
+  }
+
+  nav li {
+    margin-left: 3em;
+    margin-top: 0;
+  }
+
+  nav a {
+    opacity: 1;
+  }
+
+  nav a::before {
+    content: '';
+    display:block;
+    height: 2px;
+    background: black;
+    top: -.75em;
+    left: 0;
+    right: 0;
+    transform: scale(0, 1);
+    transition: transform ease-in-out 250ms;
+  }
+
+  nav a:hover::before {
+    transform: scale(1, 1);
+  }
 }
 
 
-.navbar-header #logo
-{
-  left: 50%;
-}
 /* -= FOOTER =- */
-.site-footer
-{
+.site-footer {
   background-color:#f0f0f0;
   padding:45px 0 20px;
   font-size:15px;
@@ -32,47 +176,46 @@ a {
   color:#737373;
 }
 
-.site-footer h6
-{
+.site-footer h6 {
   color:rgb(255, 255, 0);
   font-size:16px;
   text-transform:uppercase;
   margin-top:5px;
   letter-spacing:2px
 }
-.site-footer a
-{
+
+.site-footer a {
   color:#737373;
 }
-.site-footer a:hover
-{
+
+.site-footer a:hover {
   color:#225dd1;
   text-decoration:none;
 }
-.footer-links
-{
+
+.footer-links {
   padding-left:0;
   list-style:none
 }
-.footer-links li
-{
+
+.footer-links li {
   display:block
 }
-.footer-links a
-{
+
+.footer-links a {
   color:#737373
 }
-.footer-links a:active,.footer-links a:focus,.footer-links a:hover
-{
+
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover {
   color:#3366cc;
   text-decoration:none;
 }
-.footer-links.inline li
-{
+
+.footer-links.inline li {
   display:inline-block
 }
-.site-footer .social-icons a
-{
+
+.site-footer .social-icons a {
   width:40px;
   height:40px;
   line-height:40px;
@@ -81,13 +224,13 @@ a {
   border-radius:100%;
   background-color:#33353d
 }
-.social-icons li
-{
+
+.social-icons li {
   display:inline-block;
   margin-bottom:4px
 }
-.social-icons a{
-  background-color:#eceeef;
+.social-icons a {
+  background-color:#33353d;
   color:#818a91;
   font-size:16px;
   display:inline-block;
@@ -100,4 +243,9 @@ a {
   -webkit-transition:all .2s linear;
   -o-transition:all .2s linear;
   transition:all .2s linear
+}
+
+#content{
+
+
 }
