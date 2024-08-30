@@ -19,9 +19,6 @@ var userRouter = require('./routes/user');
 
 
 // mongoose
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true);
-mongoose.set('useFindAndModify', false);
 mongoose.connect("mongodb://localhost/OS");
 
 
@@ -73,11 +70,11 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', { error: err });
 });
 
 app.listen(3001, function(){
-  console.log("noNameStore server has started!");
+  console.log("MyStore server has started!");
 });
 
 module.exports = app;
