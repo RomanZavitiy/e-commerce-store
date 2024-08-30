@@ -1,26 +1,54 @@
-<% include ./partials/header %>
-<div class="row">
-  <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
-    <div id="success" class="alert alert-success <% if(noMessages) { %> hidden <% } %>" >
-      <%= successMsg %>
-    </div>
-  </div>
-</div>
-<% products.forEach(function(products){ %>
-  <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-              <img id="image-at-index" src="<%= products.imagePath %>">
-          <div class="caption">
-              <h4><%= products.title %></h4>
-          </div>
-          <p><%= products.description %></p>
-          
-          <div class="clearfix">
-            <div class="price pull-left"><%= products.price %> zł</div>
-            <a href="/add-to-card/<%= products._id %>" class="btn btn-success pull-right" role="button">Add to shopping cart</a>
-          </div>
+<% include ./partials/header1 %>
+
+
+  <!-- <div class="row" style="padding-top: 80px">
+    <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+      <div id="success" class="alert alert-success <% if(noMessages) { %> hidden <% } %>" >
+        <%= successMsg %>
       </div>
+    </div>
+  </div> -->
+
+  <div class="message-container" id="success">
+    <% if(successMsg && successMsg.length > 0) { %>
+      <div class="alert alert-info">
+        <%= successMsg %>
+      </div>
+    <% } %>
   </div>
-<% }) %>
+
+  <main class="main-content">
+        <div class="product-grid">
+            <% products.forEach(function(product) { %>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="<%= product.imagePath %>" alt="<%= product.title %>" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title"><%= product.title %></h2>
+                        <p class="product-description"><%= product.description %></p>
+                        <div class="price-button-container">
+                            <p class="product-price"><%= product.price %> zł</p>
+                            <a href="/add-to-card/<%= product._id %>" class="btn btn-success pull-right" role="button">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+      const alert = document.querySelector('.alert');
+      if (alert) {
+        setTimeout(() => {
+          alert.style.opacity = '0';
+          setTimeout(() => {
+              alert.style.display = 'none';
+            }, 300);
+         }, 5000); // Message will disappear after 5 seconds
+        }
+      });
+    </script>
 
 <% include ./partials/footer %>
